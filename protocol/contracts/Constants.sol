@@ -1,5 +1,5 @@
 /*
-    Copyright 2020 Empty Set Squad <emptysetsquad@protonmail.com>
+    Copyright 2021 Real Stable Dollar <realstabledollar@gmail.com>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ library Constants {
     uint256 private constant CHAIN_ID = 1; // Mainnet
 
     /* Bootstrapping */
-    uint256 private constant BOOTSTRAPPING_PERIOD = 90;
+    uint256 private constant BOOTSTRAPPING_PERIOD = 288;
     uint256 private constant BOOTSTRAPPING_PRICE = 11e17; // 1.10 USDC
     uint256 private constant BOOTSTRAPPING_SPEEDUP_FACTOR = 3; // 30 days @ 8 hours
 
@@ -33,7 +33,7 @@ library Constants {
     uint256 private constant ORACLE_RESERVE_MINIMUM = 1e10; // 10,000 USDC
 
     /* Bonding */
-    uint256 private constant INITIAL_STAKE_MULTIPLE = 1e6; // 100 ESD -> 100M ESDS
+    uint256 private constant INITIAL_STAKE_MULTIPLE = 1e6; // 100 RSD -> 100M RSDS
 
     /* Epoch */
     struct EpochStrategy {
@@ -48,7 +48,7 @@ library Constants {
 
     uint256 private constant CURRENT_EPOCH_OFFSET = 106;
     uint256 private constant CURRENT_EPOCH_START = 1602201600;
-    uint256 private constant CURRENT_EPOCH_PERIOD = 28800;
+    uint256 private constant CURRENT_EPOCH_PERIOD = 3600;
 
     /* Governance */
     uint256 private constant GOVERNANCE_PERIOD = 9; // 9 epochs
@@ -59,18 +59,20 @@ library Constants {
     uint256 private constant GOVERNANCE_EMERGENCY_DELAY = 6; // 6 epochs
 
     /* DAO */
-    uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 ESD
-    uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 15; // 15 epochs fluid
+    uint256 private constant ADVANCE_INCENTIVE = 1e20; // 100 RSD
+    uint256 private constant DAO_EXIT_LOCKUP_EPOCHS = 72; // 72 epochs fluid
 
     /* Pool */
-    uint256 private constant POOL_EXIT_LOCKUP_EPOCHS = 5; // 5 epochs fluid
+    uint256 private constant POOL_EXIT_LOCKUP_EPOCHS = 48; // 48 epochs fluid
 
     /* Market */
-    uint256 private constant COUPON_EXPIRATION = 90;
+    uint256 private constant COUPON_EXPIRATION = 1440;
     uint256 private constant DEBT_RATIO_CAP = 20e16; // 20%
+    uint256 private constant INITIAL_COUPON_REDEMPTION_PENALTY = 50e16; // 50%
+    uint256 private constant COUPON_REDEMPTION_PENALTY_DECAY = 3600; // 1 hour
 
     /* Regulator */
-    uint256 private constant SUPPLY_CHANGE_LIMIT = 3e16; // 3%
+    uint256 private constant SUPPLY_CHANGE_LIMIT = 1025e13; // 1.025%
     uint256 private constant COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
     uint256 private constant ORACLE_POOL_RATIO = 20; // 20%
     uint256 private constant TREASURY_RATIO = 250; // 2.5%

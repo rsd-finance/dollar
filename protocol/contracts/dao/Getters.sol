@@ -1,5 +1,5 @@
 /*
-    Copyright 2020 Empty Set Squad <emptysetsquad@protonmail.com>
+    Copyright 2021 Real Stable Dollar <realstabledollar@gmail.com>
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -32,11 +32,11 @@ contract Getters is State {
      */
 
     function name() public view returns (string memory) {
-        return "Empty Set Dollar Stake";
+        return "Real Stable Dollar Stake";
     }
 
     function symbol() public view returns (string memory) {
-        return "ESDS";
+        return "RSDS";
     }
 
     function decimals() public view returns (uint8) {
