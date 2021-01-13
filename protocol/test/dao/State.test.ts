@@ -458,14 +458,14 @@ describe("State", function () {
     describe("when called then advanced after lockup", function () {
       beforeEach("call", async function () {
         await setters.unfreezeE(user.address);
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 72; i++) {
           await setters.incrementEpochE();
         }
       });
 
       it("is frozen", async function () {
         expectBNEq(await setters.statusOf(user.address), BN(0));
-        expectBNEq(await setters.fluidUntil(user.address), BN(15));
+        expectBNEq(await setters.fluidUntil(user.address), BN(72));
       });
     });
   });
@@ -751,7 +751,7 @@ describe("State", function () {
 
     describe("bootstrapped", function () {
       it("isnt bootstrapping", async function () {
-        expect(await setters.bootstrappingAt(91)).to.be.equal(false);
+        expect(await setters.bootstrappingAt(289)).to.be.equal(false);
       });
     });
   });

@@ -68,7 +68,7 @@ describe("Regulator", function () {
           let txRecp: ContractReceipt;
           beforeEach(async function () {
             await oracle.set(115, 100, true);
-            expectedReward = 30000;
+            expectedReward = 10250;
 
             const tx = await regulator.stepE();
             txRecp = await tx.wait();
@@ -504,7 +504,7 @@ describe("Regulator", function () {
 
           beforeEach(async function () {
             await oracle.set(95, 100, true);
-            expectedDebt = 27000; // 3% not 5%
+            expectedDebt = 9225; // 3% not 5%
 
             const tx = await regulator.stepE();
             txRecp = await tx.wait();
@@ -555,7 +555,7 @@ describe("Regulator", function () {
 
           beforeEach(async function () {
             await oracle.set(99, 100, true);
-            expectedDebt = 5000;
+            expectedDebt = 8550;
 
             const tx = await regulator.stepE();
             txRecp = await tx.wait();
