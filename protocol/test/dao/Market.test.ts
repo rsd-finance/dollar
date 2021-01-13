@@ -438,7 +438,7 @@ describe("Market", function () {
     describe("on call without expiration", function () {
       it("initializes coupon expiry", async function () {
         expectBNEq(await market.couponsExpiration(2), BN(1442));
-        expectBNEq(await market.expiringCoupons(1442), BN(0));
+        expectBNEq(await market.expiringCoupons(1442), BN(1));
         expectBNEq(await market.expiringCouponsAtIndex(1442, 0), BN(2));
       });
     });
