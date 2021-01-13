@@ -781,7 +781,7 @@ describe("Bonding", function () {
       await bonding.connect(user).unbondUnderlying(2000);
 
       await increaseTime(3600);
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 71; i++) {
         await bonding.connect(user).stepE();
       }
     });
@@ -792,7 +792,7 @@ describe("Bonding", function () {
       });
 
       it("is correct epoch", async function () {
-        expectBNEq(await bonding.epoch(), BN(17));
+        expectBNEq(await bonding.epoch(), BN(74));
       });
     });
 
@@ -806,7 +806,7 @@ describe("Bonding", function () {
       });
 
       it("is correct epoch", async function () {
-        expectBNEq(await bonding.epoch(), BN(18));
+        expectBNEq(await bonding.epoch(), BN(75));
       });
 
       it("has correct snapshots", async function () {
