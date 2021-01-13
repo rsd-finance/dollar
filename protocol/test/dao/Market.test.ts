@@ -438,8 +438,8 @@ describe("Market", function () {
     describe("on call without expiration", function () {
       it("initializes coupon expiry", async function () {
         expectBNEq(await market.couponsExpiration(2), BN(1442));
-        expectBNEq(await market.expiringCoupons(92), BN(1));
-        expectBNEq(await market.expiringCouponsAtIndex(92, 0), BN(2));
+        expectBNEq(await market.expiringCoupons(1442), BN(0));
+        expectBNEq(await market.expiringCouponsAtIndex(1442, 0), BN(2));
       });
     });
 
@@ -643,7 +643,6 @@ describe("Market", function () {
         });
 
         it("emits CouponExpiration event", async function () {
-          console.log(txRecp);
           await expectEventIn(txRecp, "CouponExpiration", {
             epoch: BN(2),
             couponsExpired: BN(50000 + premium(1100000, 120000, 50000)),
