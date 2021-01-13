@@ -170,7 +170,7 @@ describe("Oracle", function () {
             expectBNEq(await priceForToBN(oracle), cents(100));
             expect(await oracle.isInitialized()).to.be.equal(true);
             expectBNEq(await oracle.cumulative(), BN(0));
-            expectBNEq(await oracle.timestamp(), BN(timestamp + 3600));
+            expectBNAproxEq(await oracle.timestamp(), BN(timestamp + 3600), BN(1));
             expectBNEq(await oracle.reserve(), usdcDecimals(1000000));
           });
         });
