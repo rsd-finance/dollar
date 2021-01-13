@@ -250,7 +250,7 @@ describe("PollState", function () {
     describe("when called then advanced after lockup", function () {
       beforeEach("call", async function () {
         await setters.unfreezeE(user.address);
-        await dao.set(5);
+        await dao.set(48);
       });
 
       it("is frozen", async function () {
