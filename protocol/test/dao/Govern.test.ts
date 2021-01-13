@@ -33,7 +33,6 @@ describe("Govern", function () {
 
   before(async function () {
     [owner, user, user2, user3] = await ethers.getSigners();
-
   });
 
   beforeEach(async function () {

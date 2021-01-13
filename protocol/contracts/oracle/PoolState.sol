@@ -23,11 +23,7 @@ import "./IDAO.sol";
 import "./IUSDC.sol";
 
 contract PoolAccount {
-    enum Status {
-        Frozen,
-        Fluid,
-        Locked
-    }
+    enum Status { Frozen, Fluid, Locked }
 
     struct State {
         uint256 staged;
@@ -49,7 +45,6 @@ contract PoolStorage {
     struct State {
         Balance balance;
         bool paused;
-
         mapping(address => PoolAccount.State) accounts;
     }
 }

@@ -21,7 +21,7 @@ import "../dao/Upgradeable.sol";
 import "../dao/Permission.sol";
 
 contract MockImplB is Upgradeable, Permission {
-    constructor () public { }
+    constructor() public {}
 
     event MockInitializedB();
 

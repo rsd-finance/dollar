@@ -44,7 +44,6 @@ describe("Market", function () {
 
   before(async function () {
     [owner, user, pool] = await ethers.getSigners();
-
   });
 
   beforeEach(async function () {

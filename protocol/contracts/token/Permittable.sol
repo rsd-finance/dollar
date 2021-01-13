@@ -34,7 +34,12 @@ contract Permittable is ERC20Detailed, ERC20 {
     mapping(address => uint256) nonces;
 
     constructor() public {
-        EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(name(), EIP712_VERSION, Constants.getChainId(), address(this));
+        EIP712_DOMAIN_SEPARATOR = LibEIP712.hashEIP712Domain(
+            name(),
+            EIP712_VERSION,
+            Constants.getChainId(),
+            address(this)
+        );
     }
 
     function permit(
@@ -46,36 +51,18 @@ contract Permittable is ERC20Detailed, ERC20 {
         bytes32 r,
         bytes32 s
     ) external {
-        bytes32 digest = LibEIP712.hashEIP712Message(
-            EIP712_DOMAIN_SEPARATOR,
-            keccak256(abi.encode(
-                EIP712_PERMIT_TYPEHASH,
-                owner,
-                spender,
-                value,
-                nonces[owner]++,
-                deadline
-            ))
-        );
+        bytes32 digest =
+            LibEIP712.hashEIP712Message(
+                EIP712_DOMAIN_SEPARATOR,
+                keccak256(abi.encode(EIP712_PERMIT_TYPEHASH, owner, spender, value, nonces[owner]++, deadline))
+            );
 
         address recovered = ecrecover(digest, v, r, s);
-        Require.that(
-            recovered == owner,
-            FILE,
-            "Invalid signature"
-        );
+        Require.that(recovered == owner, FILE, "Invalid signature");
 
-        Require.that(
-            recovered != address(0),
-            FILE,
-            "Zero address"
-        );
+        Require.that(recovered != address(0), FILE, "Zero address");
 
-        Require.that(
-            now <= deadline,
-            FILE,
-            "Expired"
-        );
+        Require.that(now <= deadline, FILE, "Expired");
 
         _approve(owner, spender, value);
     }

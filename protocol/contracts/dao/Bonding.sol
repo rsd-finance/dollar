@@ -34,11 +34,7 @@ contract Bonding is Setters, Permission {
     event Unbond(address indexed account, uint256 start, uint256 value, uint256 valueUnderlying);
 
     function step() internal {
-        Require.that(
-            epochTime() > epoch(),
-            FILE,
-            "Still current epoch"
-        );
+        Require.that(epochTime() > epoch(), FILE, "Still current epoch");
 
         snapshotTotalBonded();
         incrementEpoch();
@@ -61,9 +57,10 @@ contract Bonding is Setters, Permission {
     function bond(uint256 value) external onlyFrozenOrFluid(msg.sender) {
         unfreeze(msg.sender);
 
-        uint256 balance = totalBonded() == 0 ?
-            value.mul(Constants.getInitialStakeMultiple()) :
-            value.mul(totalSupply()).div(totalBonded());
+        uint256 balance =
+            totalBonded() == 0
+                ? value.mul(Constants.getInitialStakeMultiple())
+                : value.mul(totalSupply()).div(totalBonded());
         incrementBalanceOf(msg.sender, balance);
         incrementTotalBonded(value);
         decrementBalanceOfStaged(msg.sender, value, "Bonding: insufficient staged balance");

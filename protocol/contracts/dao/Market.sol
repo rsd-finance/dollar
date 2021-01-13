@@ -27,7 +27,13 @@ contract Market is Comptroller, Curve {
 
     bytes32 private constant FILE = "Market";
 
-    event CouponExpiration(uint256 indexed epoch, uint256 couponsExpired, uint256 lessRedeemable, uint256 lessDebt, uint256 newBonded);
+    event CouponExpiration(
+        uint256 indexed epoch,
+        uint256 couponsExpired,
+        uint256 lessRedeemable,
+        uint256 lessDebt,
+        uint256 newBonded
+    );
     event CouponPurchase(address indexed account, uint256 indexed epoch, uint256 dollarAmount, uint256 couponAmount);
     event CouponRedemption(address indexed account, uint256 indexed epoch, uint256 couponAmount);
     event CouponTransfer(address indexed from, address indexed to, uint256 indexed epoch, uint256 value);
@@ -66,17 +72,9 @@ contract Market is Comptroller, Curve {
     }
 
     function purchaseCoupons(uint256 dollarAmount) external returns (uint256) {
-        Require.that(
-            dollarAmount > 0,
-            FILE,
-            "Must purchase non-zero amount"
-        );
+        Require.that(dollarAmount > 0, FILE, "Must purchase non-zero amount");
 
-        Require.that(
-            totalDebt() >= dollarAmount,
-            FILE,
-            "Not enough debt"
-        );
+        Require.that(totalDebt() >= dollarAmount, FILE, "Not enough debt");
 
         uint256 epoch = epoch();
         uint256 couponAmount = dollarAmount.add(couponPremium(dollarAmount));
@@ -104,7 +102,12 @@ contract Market is Comptroller, Curve {
         emit CouponApproval(msg.sender, spender, amount);
     }
 
-    function transferCoupons(address sender, address recipient, uint256 epoch, uint256 amount) external {
+    function transferCoupons(
+        address sender,
+        address recipient,
+        uint256 epoch,
+        uint256 amount
+    ) external {
         require(sender != address(0), "Market: Coupon transfer from the zero address");
         require(recipient != address(0), "Market: Coupon transfer to the zero address");
 

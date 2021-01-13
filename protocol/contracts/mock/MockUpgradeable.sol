@@ -21,7 +21,7 @@ import "../dao/Upgradeable.sol";
 import "../dao/Permission.sol";
 
 contract MockUpgradeable is Upgradeable, Permission {
-    constructor () public { }
+    constructor() public {}
 
     function initialize() public {
         revert("Should not call");

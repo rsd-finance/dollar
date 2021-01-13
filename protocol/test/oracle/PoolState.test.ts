@@ -15,7 +15,6 @@ import { MockPoolState } from "../../typechain/MockPoolState";
 
 const { deployContract } = waffle;
 
-
 describe("PollState", function () {
   let [owner, user, user2]: SignerWithAddress[] = [];
 
@@ -78,10 +77,7 @@ describe("PollState", function () {
       });
 
       it("reverts", async function () {
-        await expectRevert(
-          setters.decrementBalanceOfBondedE(200, "decrementBalanceOfBondedE"),
-          "missing argument",
-        );
+        await expectRevert(setters.decrementBalanceOfBondedE(200, "decrementBalanceOfBondedE"), "missing argument");
       });
     });
   });
@@ -126,10 +122,7 @@ describe("PollState", function () {
       });
 
       it("reverts", async function () {
-        await expectRevert(
-          setters.decrementBalanceOfStagedE(200, "decrementBalanceOfStagedE"),
-          "missing argument",
-        );
+        await expectRevert(setters.decrementBalanceOfStagedE(200, "decrementBalanceOfStagedE"), "missing argument");
       });
     });
   });
@@ -222,10 +215,7 @@ describe("PollState", function () {
       });
 
       it("reverts", async function () {
-        await expectRevert(
-          setters.decrementBalanceOfPhantomE(200, "decrementBalanceOfPhantomE"),
-          "missing argument",
-        );
+        await expectRevert(setters.decrementBalanceOfPhantomE(200, "decrementBalanceOfPhantomE"), "missing argument");
       });
     });
   });

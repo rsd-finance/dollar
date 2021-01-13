@@ -217,10 +217,7 @@ describe("State", function () {
       });
 
       it("reverts", async function () {
-        await expectRevert(
-          setters.decrementTotalRedeemableE(200, "decrementTotalRedeemableE"),
-          "revert",
-        );
+        await expectRevert(setters.decrementTotalRedeemableE(200, "decrementTotalRedeemableE"), "revert");
       });
     });
   });
@@ -314,10 +311,7 @@ describe("State", function () {
       });
 
       it("reverts", async function () {
-        await expectRevert(
-          setters.decrementBalanceOfStagedE(200, "decrementBalanceOfStagedE"),
-          "missing argument",
-        );
+        await expectRevert(setters.decrementBalanceOfStagedE(200, "decrementBalanceOfStagedE"), "missing argument");
       });
     });
   });
@@ -881,10 +875,7 @@ describe("State", function () {
       });
 
       it("reverts", async function () {
-        await expectRevert(
-          setters.decrementApproveForE(candidate.address, 1100, "decrementApproveForE"),
-          "revert",
-        );
+        await expectRevert(setters.decrementApproveForE(candidate.address, 1100, "decrementApproveForE"), "revert");
       });
     });
   });

@@ -23,7 +23,7 @@ import "./MockComptroller.sol";
 import "./MockState.sol";
 
 contract MockRegulator is MockComptroller, Regulator {
-    constructor (address oracle, address pool) MockComptroller(pool) public {
+    constructor(address oracle, address pool) public MockComptroller(pool) {
         _state.provider.oracle = IOracle(oracle);
     }
 

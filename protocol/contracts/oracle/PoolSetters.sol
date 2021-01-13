@@ -41,7 +41,11 @@ contract PoolSetters is PoolState, PoolGetters {
         _state.balance.bonded = _state.balance.bonded.add(amount);
     }
 
-    function decrementBalanceOfBonded(address account, uint256 amount, string memory reason) internal {
+    function decrementBalanceOfBonded(
+        address account,
+        uint256 amount,
+        string memory reason
+    ) internal {
         _state.accounts[account].bonded = _state.accounts[account].bonded.sub(amount, reason);
         _state.balance.bonded = _state.balance.bonded.sub(amount, reason);
     }
@@ -51,7 +55,11 @@ contract PoolSetters is PoolState, PoolGetters {
         _state.balance.staged = _state.balance.staged.add(amount);
     }
 
-    function decrementBalanceOfStaged(address account, uint256 amount, string memory reason) internal {
+    function decrementBalanceOfStaged(
+        address account,
+        uint256 amount,
+        string memory reason
+    ) internal {
         _state.accounts[account].staged = _state.accounts[account].staged.sub(amount, reason);
         _state.balance.staged = _state.balance.staged.sub(amount, reason);
     }
@@ -61,7 +69,11 @@ contract PoolSetters is PoolState, PoolGetters {
         _state.balance.claimable = _state.balance.claimable.add(amount);
     }
 
-    function decrementBalanceOfClaimable(address account, uint256 amount, string memory reason) internal {
+    function decrementBalanceOfClaimable(
+        address account,
+        uint256 amount,
+        string memory reason
+    ) internal {
         _state.accounts[account].claimable = _state.accounts[account].claimable.sub(amount, reason);
         _state.balance.claimable = _state.balance.claimable.sub(amount, reason);
     }
@@ -71,7 +83,11 @@ contract PoolSetters is PoolState, PoolGetters {
         _state.balance.phantom = _state.balance.phantom.add(amount);
     }
 
-    function decrementBalanceOfPhantom(address account, uint256 amount, string memory reason) internal {
+    function decrementBalanceOfPhantom(
+        address account,
+        uint256 amount,
+        string memory reason
+    ) internal {
         _state.accounts[account].phantom = _state.accounts[account].phantom.sub(amount, reason);
         _state.balance.phantom = _state.balance.phantom.sub(amount, reason);
     }

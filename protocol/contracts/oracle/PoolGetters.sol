@@ -95,9 +95,7 @@ contract PoolGetters is PoolState {
         }
 
         uint256 totalRewardedWithPhantom = totalRewarded().add(totalPhantom());
-        uint256 balanceOfRewardedWithPhantom = totalRewardedWithPhantom
-            .mul(balanceOfBonded(account))
-            .div(totalBonded);
+        uint256 balanceOfRewardedWithPhantom = totalRewardedWithPhantom.mul(balanceOfBonded(account)).div(totalBonded);
 
         uint256 balanceOfPhantom = balanceOfPhantom(account);
         if (balanceOfRewardedWithPhantom > balanceOfPhantom) {
@@ -107,9 +105,7 @@ contract PoolGetters is PoolState {
     }
 
     function statusOf(address account) public view returns (PoolAccount.Status) {
-        return epoch() >= _state.accounts[account].fluidUntil ?
-            PoolAccount.Status.Frozen :
-            PoolAccount.Status.Fluid;
+        return epoch() >= _state.accounts[account].fluidUntil ? PoolAccount.Status.Frozen : PoolAccount.Status.Fluid;
     }
 
     /**

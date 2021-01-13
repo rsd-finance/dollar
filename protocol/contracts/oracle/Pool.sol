@@ -27,7 +27,7 @@ import "./Liquidity.sol";
 contract Pool is PoolSetters, Liquidity {
     using SafeMath for uint256;
 
-    constructor() public { }
+    constructor() public {}
 
     bytes32 private constant FILE = "Pool";
 
@@ -69,9 +69,10 @@ contract Pool is PoolSetters, Liquidity {
         unfreeze(msg.sender);
 
         uint256 totalRewardedWithPhantom = totalRewarded().add(totalPhantom());
-        uint256 newPhantom = totalBonded() == 0 ?
-            totalRewarded() == 0 ? Constants.getInitialStakeMultiple().mul(value) : 0 :
-            totalRewardedWithPhantom.mul(value).div(totalBonded());
+        uint256 newPhantom =
+            totalBonded() == 0
+                ? totalRewarded() == 0 ? Constants.getInitialStakeMultiple().mul(value) : 0
+                : totalRewardedWithPhantom.mul(value).div(totalBonded());
 
         incrementBalanceOfBonded(msg.sender, value);
         incrementBalanceOfPhantom(msg.sender, newPhantom);
@@ -86,11 +87,7 @@ contract Pool is PoolSetters, Liquidity {
         unfreeze(msg.sender);
 
         uint256 balanceOfBonded = balanceOfBonded(msg.sender);
-        Require.that(
-            balanceOfBonded > 0,
-            FILE,
-            "insufficient bonded balance"
-        );
+        Require.that(balanceOfBonded > 0, FILE, "insufficient bonded balance");
 
         uint256 newClaimable = balanceOfRewarded(msg.sender).mul(value).div(balanceOfBonded);
         uint256 lessPhantom = balanceOfPhantom(msg.sender).mul(value).div(balanceOfBonded);
@@ -106,23 +103,11 @@ contract Pool is PoolSetters, Liquidity {
     }
 
     function provide(uint256 value) external onlyFrozen(msg.sender) notPaused {
-        Require.that(
-            totalBonded() > 0,
-            FILE,
-            "insufficient total bonded"
-        );
+        Require.that(totalBonded() > 0, FILE, "insufficient total bonded");
 
-        Require.that(
-            totalRewarded() > 0,
-            FILE,
-            "insufficient total rewarded"
-        );
+        Require.that(totalRewarded() > 0, FILE, "insufficient total rewarded");
 
-        Require.that(
-            balanceOfRewarded(msg.sender) >= value,
-            FILE,
-            "insufficient rewarded balance"
-        );
+        Require.that(balanceOfRewarded(msg.sender) >= value, FILE, "insufficient rewarded balance");
 
         (uint256 lessUsdc, uint256 newUniv2) = addLiquidity(value);
 
@@ -131,7 +116,6 @@ contract Pool is PoolSetters, Liquidity {
 
         incrementBalanceOfBonded(msg.sender, newUniv2);
         incrementBalanceOfPhantom(msg.sender, value.add(newPhantomFromBonded));
-
 
         balanceCheck();
 
@@ -155,31 +139,19 @@ contract Pool is PoolSetters, Liquidity {
     }
 
     modifier onlyFrozen(address account) {
-        Require.that(
-            statusOf(account) == PoolAccount.Status.Frozen,
-            FILE,
-            "Not frozen"
-        );
+        Require.that(statusOf(account) == PoolAccount.Status.Frozen, FILE, "Not frozen");
 
         _;
     }
 
     modifier onlyDao() {
-        Require.that(
-            msg.sender == address(dao()),
-            FILE,
-            "Not dao"
-        );
+        Require.that(msg.sender == address(dao()), FILE, "Not dao");
 
         _;
     }
 
     modifier notPaused() {
-        Require.that(
-            !paused(),
-            FILE,
-            "Paused"
-        );
+        Require.that(!paused(), FILE, "Paused");
 
         _;
     }

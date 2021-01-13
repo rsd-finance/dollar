@@ -54,8 +54,10 @@ contract Curve {
             Decimal.D256 memory premiumCurveDelta = debtRatioUpperBound.sub(debtRatioEnd);
             Decimal.D256 memory premiumFlat = curve(debtRatioUpperBound);
             Decimal.D256 memory premiumFlatDelta = debtRatio.sub(debtRatioUpperBound);
-            return (premiumCurve.mul(premiumCurveDelta)).add(premiumFlat.mul(premiumFlatDelta))
-                .div(premiumCurveDelta.add(premiumFlatDelta));
+            return
+                (premiumCurve.mul(premiumCurveDelta)).add(premiumFlat.mul(premiumFlatDelta)).div(
+                    premiumCurveDelta.add(premiumFlatDelta)
+                );
         }
 
         return curveMean(debtRatioEnd, debtRatio);
@@ -63,22 +65,19 @@ contract Curve {
 
     // 1/((1-R)^2)-1
     function curve(Decimal.D256 memory debtRatio) private pure returns (Decimal.D256 memory) {
-        return Decimal.one().div(
-            (Decimal.one().sub(debtRatio)).pow(2)
-        ).sub(Decimal.one());
+        return Decimal.one().div((Decimal.one().sub(debtRatio)).pow(2)).sub(Decimal.one());
     }
 
     // 1/((1-R)(1-R'))-1
-    function curveMean(
-        Decimal.D256 memory lower,
-        Decimal.D256 memory upper
-    ) private pure returns (Decimal.D256 memory) {
+    function curveMean(Decimal.D256 memory lower, Decimal.D256 memory upper)
+        private
+        pure
+        returns (Decimal.D256 memory)
+    {
         if (lower.equals(upper)) {
             return curve(lower);
         }
 
-        return Decimal.one().div(
-            (Decimal.one().sub(upper)).mul(Decimal.one().sub(lower))
-        ).sub(Decimal.one());
+        return Decimal.one().div((Decimal.one().sub(upper)).mul(Decimal.one().sub(lower))).sub(Decimal.one());
     }
 }

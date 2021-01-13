@@ -23,7 +23,6 @@ pragma solidity ^0.5.7;
  * Stringifies parameters to pretty-print revert messages. Costs more gas than regular require()
  */
 library Require {
-
     // ============ Constants ============
 
     uint256 constant ASCII_ZERO = 48; // '0'
@@ -32,7 +31,7 @@ library Require {
     bytes2 constant COLON = 0x3a20; // ': '
     bytes2 constant COMMA = 0x2c20; // ', '
     bytes2 constant LPAREN = 0x203c; // ' <'
-    byte constant RPAREN = 0x3e; // '>'
+    bytes1 constant RPAREN = 0x3e; // '>'
     uint256 constant FOUR_BIT_MASK = 0xf;
 
     // ============ Library Functions ============
@@ -41,20 +40,9 @@ library Require {
         bool must,
         bytes32 file,
         bytes32 reason
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
-            revert(
-                string(
-                    abi.encodePacked(
-                        stringifyTruncated(file),
-                        COLON,
-                        stringifyTruncated(reason)
-                    )
-                )
-            );
+            revert(string(abi.encodePacked(stringifyTruncated(file), COLON, stringifyTruncated(reason))));
         }
     }
 
@@ -63,10 +51,7 @@ library Require {
         bytes32 file,
         bytes32 reason,
         uint256 payloadA
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -89,10 +74,7 @@ library Require {
         bytes32 reason,
         uint256 payloadA,
         uint256 payloadB
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -116,10 +98,7 @@ library Require {
         bytes32 file,
         bytes32 reason,
         address payloadA
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -142,10 +121,7 @@ library Require {
         bytes32 reason,
         address payloadA,
         uint256 payloadB
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -171,10 +147,7 @@ library Require {
         address payloadA,
         uint256 payloadB,
         uint256 payloadC
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -200,10 +173,7 @@ library Require {
         bytes32 file,
         bytes32 reason,
         bytes32 payloadA
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -227,10 +197,7 @@ library Require {
         bytes32 payloadA,
         uint256 payloadB,
         uint256 payloadC
-    )
-    internal
-    pure
-    {
+    ) internal pure {
         if (!must) {
             revert(
                 string(
@@ -253,13 +220,7 @@ library Require {
 
     // ============ Private Functions ============
 
-    function stringifyTruncated(
-        bytes32 input
-    )
-    private
-    pure
-    returns (bytes memory)
-    {
+    function stringifyTruncated(bytes32 input) private pure returns (bytes memory) {
         // put the input bytes into the result
         bytes memory result = abi.encodePacked(input);
 
@@ -286,13 +247,7 @@ library Require {
         return new bytes(0);
     }
 
-    function stringify(
-        uint256 input
-    )
-    private
-    pure
-    returns (bytes memory)
-    {
+    function stringify(uint256 input) private pure returns (bytes memory) {
         if (input == 0) {
             return "0";
         }
@@ -316,7 +271,7 @@ library Require {
             i--;
 
             // take last decimal digit
-            bstr[i] = byte(uint8(ASCII_ZERO + (j % 10)));
+            bstr[i] = bytes1(uint8(ASCII_ZERO + (j % 10)));
 
             // remove the last decimal digit
             j /= 10;
@@ -325,21 +280,15 @@ library Require {
         return bstr;
     }
 
-    function stringify(
-        address input
-    )
-    private
-    pure
-    returns (bytes memory)
-    {
+    function stringify(address input) private pure returns (bytes memory) {
         uint256 z = uint256(input);
 
         // addresses are "0x" followed by 20 bytes of data which take up 2 characters each
         bytes memory result = new bytes(42);
 
         // populate the result with "0x"
-        result[0] = byte(uint8(ASCII_ZERO));
-        result[1] = byte(uint8(ASCII_LOWER_EX));
+        result[0] = bytes1(uint8(ASCII_ZERO));
+        result[1] = bytes1(uint8(ASCII_LOWER_EX));
 
         // for each byte (starting from the lowest byte), populate the result with two characters
         for (uint256 i = 0; i < 20; i++) {
@@ -358,21 +307,15 @@ library Require {
         return result;
     }
 
-    function stringify(
-        bytes32 input
-    )
-    private
-    pure
-    returns (bytes memory)
-    {
+    function stringify(bytes32 input) private pure returns (bytes memory) {
         uint256 z = uint256(input);
 
         // bytes32 are "0x" followed by 32 bytes of data which take up 2 characters each
         bytes memory result = new bytes(66);
 
         // populate the result with "0x"
-        result[0] = byte(uint8(ASCII_ZERO));
-        result[1] = byte(uint8(ASCII_LOWER_EX));
+        result[0] = bytes1(uint8(ASCII_ZERO));
+        result[1] = bytes1(uint8(ASCII_LOWER_EX));
 
         // for each byte (starting from the lowest byte), populate the result with two characters
         for (uint256 i = 0; i < 32; i++) {
@@ -391,19 +334,13 @@ library Require {
         return result;
     }
 
-    function char(
-        uint256 input
-    )
-    private
-    pure
-    returns (byte)
-    {
+    function char(uint256 input) private pure returns (bytes1) {
         // return ASCII digit (0-9)
         if (input < 10) {
-            return byte(uint8(input + ASCII_ZERO));
+            return bytes1(uint8(input + ASCII_ZERO));
         }
 
         // return ASCII letter (a-f)
-        return byte(uint8(input + ASCII_RELATIVE_ZERO));
+        return bytes1(uint8(input + ASCII_RELATIVE_ZERO));
     }
 }

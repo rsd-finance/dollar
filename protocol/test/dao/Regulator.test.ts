@@ -11,8 +11,6 @@ import { MockSettableOracle } from "../../typechain/MockSettableOracle";
 import MockRegulatorArtifact from "../../artifacts/contracts/mock/MockRegulator.sol/MockRegulator.json";
 import { MockRegulator } from "../../typechain/MockRegulator";
 
-
-
 const { deployContract } = waffle;
 
 function lessPoolAndTreasuryIncentive(baseAmount, newAmount) {
@@ -38,7 +36,6 @@ describe("Regulator", function () {
 
   before(async function () {
     [owner, user, pool] = await ethers.getSigners();
-
   });
 
   beforeEach(async function () {

@@ -26,7 +26,13 @@ contract Regulator is Comptroller {
     using SafeMath for uint256;
     using Decimal for Decimal.D256;
 
-    event SupplyIncrease(uint256 indexed epoch, uint256 price, uint256 newRedeemable, uint256 lessDebt, uint256 newBonded);
+    event SupplyIncrease(
+        uint256 indexed epoch,
+        uint256 price,
+        uint256 newRedeemable,
+        uint256 lessDebt,
+        uint256 newBonded
+    );
     event SupplyDecrease(uint256 indexed epoch, uint256 price, uint256 newDebt);
     event SupplyNeutral(uint256 indexed epoch);
 
@@ -65,9 +71,8 @@ contract Regulator is Comptroller {
     }
 
     function limit(Decimal.D256 memory delta, Decimal.D256 memory price) private view returns (Decimal.D256 memory) {
-
         Decimal.D256 memory supplyChangeLimit = Constants.getSupplyChangeLimit();
-        
+
         uint256 totalRedeemable = totalRedeemable();
         uint256 totalCoupons = totalCoupons();
         if (price.greaterThan(Decimal.one()) && (totalRedeemable < totalCoupons)) {
@@ -75,7 +80,6 @@ contract Regulator is Comptroller {
         }
 
         return delta.greaterThan(supplyChangeLimit) ? supplyChangeLimit : delta;
-
     }
 
     function oracleCapture() private returns (Decimal.D256 memory) {

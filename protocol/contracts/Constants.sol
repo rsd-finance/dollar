@@ -96,19 +96,17 @@ library Constants {
     }
 
     function getPreviousEpochStrategy() internal pure returns (EpochStrategy memory) {
-        return EpochStrategy({
-            offset: PREVIOUS_EPOCH_OFFSET,
-            start: PREVIOUS_EPOCH_START,
-            period: PREVIOUS_EPOCH_PERIOD
-        });
+        return
+            EpochStrategy({
+                offset: PREVIOUS_EPOCH_OFFSET,
+                start: PREVIOUS_EPOCH_START,
+                period: PREVIOUS_EPOCH_PERIOD
+            });
     }
 
     function getCurrentEpochStrategy() internal pure returns (EpochStrategy memory) {
-        return EpochStrategy({
-            offset: CURRENT_EPOCH_OFFSET,
-            start: CURRENT_EPOCH_START,
-            period: CURRENT_EPOCH_PERIOD
-        });
+        return
+            EpochStrategy({ offset: CURRENT_EPOCH_OFFSET, start: CURRENT_EPOCH_START, period: CURRENT_EPOCH_PERIOD });
     }
 
     function getInitialStakeMultiple() internal pure returns (uint256) {
@@ -120,7 +118,7 @@ library Constants {
     }
 
     function getBootstrappingPrice() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: BOOTSTRAPPING_PRICE});
+        return Decimal.D256({ value: BOOTSTRAPPING_PRICE });
     }
 
     function getBootstrappingSpeedupFactor() internal pure returns (uint256) {
@@ -136,15 +134,15 @@ library Constants {
     }
 
     function getGovernanceQuorum() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: GOVERNANCE_QUORUM});
+        return Decimal.D256({ value: GOVERNANCE_QUORUM });
     }
 
     function getGovernanceProposalThreshold() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: GOVERNANCE_PROPOSAL_THRESHOLD});
+        return Decimal.D256({ value: GOVERNANCE_PROPOSAL_THRESHOLD });
     }
 
     function getGovernanceSuperMajority() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: GOVERNANCE_SUPER_MAJORITY});
+        return Decimal.D256({ value: GOVERNANCE_SUPER_MAJORITY });
     }
 
     function getGovernanceEmergencyDelay() internal pure returns (uint256) {
@@ -168,15 +166,15 @@ library Constants {
     }
 
     function getDebtRatioCap() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: DEBT_RATIO_CAP});
+        return Decimal.D256({ value: DEBT_RATIO_CAP });
     }
 
     function getSupplyChangeLimit() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: SUPPLY_CHANGE_LIMIT});
+        return Decimal.D256({ value: SUPPLY_CHANGE_LIMIT });
     }
 
     function getCouponSupplyChangeLimit() internal pure returns (Decimal.D256 memory) {
-        return Decimal.D256({value: COUPON_SUPPLY_CHANGE_LIMIT});
+        return Decimal.D256({ value: COUPON_SUPPLY_CHANGE_LIMIT });
     }
 
     function getOraclePoolRatio() internal pure returns (uint256) {

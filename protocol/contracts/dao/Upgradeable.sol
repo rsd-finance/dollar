@@ -58,7 +58,10 @@ contract Upgradeable is State {
      * @param newImplementation Address of the new implementation.
      */
     function setImplementation(address newImplementation) private {
-        require(OpenZeppelinUpgradesAddress.isContract(newImplementation), "Cannot set a proxy implementation to a non-contract address");
+        require(
+            OpenZeppelinUpgradesAddress.isContract(newImplementation),
+            "Cannot set a proxy implementation to a non-contract address"
+        );
 
         bytes32 slot = IMPLEMENTATION_SLOT;
 

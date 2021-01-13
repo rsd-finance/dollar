@@ -22,7 +22,7 @@ import "../dao/Bonding.sol";
 import "./MockComptroller.sol";
 
 contract MockBonding is MockComptroller, Bonding {
-    constructor() MockComptroller(address(0)) public { }
+    constructor() public MockComptroller(address(0)) {}
 
     function stepE() external {
         Bonding.step();

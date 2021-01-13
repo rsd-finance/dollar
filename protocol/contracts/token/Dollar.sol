@@ -23,27 +23,26 @@ import "@openzeppelin/contracts/access/roles/MinterRole.sol";
 import "./Permittable.sol";
 import "./IDollar.sol";
 
-
-contract Dollar is IDollar, MinterRole, ERC20Detailed, Permittable, ERC20Burnable  {
-
-    constructor()
-    ERC20Detailed("Real Stable Dollar", "ESD", 18)
-    Permittable()
-    public
-    { }
+contract Dollar is IDollar, MinterRole, ERC20Detailed, Permittable, ERC20Burnable {
+    constructor() public ERC20Detailed("Real Stable Dollar", "ESD", 18) Permittable() {}
 
     function mint(address account, uint256 amount) public onlyMinter returns (bool) {
         _mint(account, amount);
         return true;
     }
 
-    function transferFrom(address sender, address recipient, uint256 amount) public returns (bool) {
+    function transferFrom(
+        address sender,
+        address recipient,
+        uint256 amount
+    ) public returns (bool) {
         _transfer(sender, recipient, amount);
         if (allowance(sender, _msgSender()) != uint256(-1)) {
             _approve(
                 sender,
                 _msgSender(),
-                allowance(sender, _msgSender()).sub(amount, "Dollar: transfer amount exceeds allowance"));
+                allowance(sender, _msgSender()).sub(amount, "Dollar: transfer amount exceeds allowance")
+            );
         }
         return true;
     }

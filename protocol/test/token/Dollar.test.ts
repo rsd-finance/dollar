@@ -73,7 +73,6 @@ describe("Dollar", function () {
       to: user.address,
       value: ethers.utils.parseEther("5"),
     });
-
   });
 
   beforeEach(async function () {

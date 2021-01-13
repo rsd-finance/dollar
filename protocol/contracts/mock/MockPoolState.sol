@@ -44,7 +44,11 @@ contract MockPoolState is PoolSetters {
         super.incrementBalanceOfBonded(account, amount);
     }
 
-    function decrementBalanceOfBondedE(address account, uint256 amount, string calldata reason) external {
+    function decrementBalanceOfBondedE(
+        address account,
+        uint256 amount,
+        string calldata reason
+    ) external {
         super.decrementBalanceOfBonded(account, amount, reason);
     }
 
@@ -52,7 +56,11 @@ contract MockPoolState is PoolSetters {
         super.incrementBalanceOfStaged(account, amount);
     }
 
-    function decrementBalanceOfStagedE(address account, uint256 amount, string calldata reason) external {
+    function decrementBalanceOfStagedE(
+        address account,
+        uint256 amount,
+        string calldata reason
+    ) external {
         super.decrementBalanceOfStaged(account, amount, reason);
     }
 
@@ -60,7 +68,11 @@ contract MockPoolState is PoolSetters {
         super.incrementBalanceOfClaimable(account, amount);
     }
 
-    function decrementBalanceOfClaimableE(address account, uint256 amount, string calldata reason) external {
+    function decrementBalanceOfClaimableE(
+        address account,
+        uint256 amount,
+        string calldata reason
+    ) external {
         super.decrementBalanceOfClaimable(account, amount, reason);
     }
 
@@ -68,7 +80,11 @@ contract MockPoolState is PoolSetters {
         super.incrementBalanceOfPhantom(account, amount);
     }
 
-    function decrementBalanceOfPhantomE(address account, uint256 amount, string calldata reason) external {
+    function decrementBalanceOfPhantomE(
+        address account,
+        uint256 amount,
+        string calldata reason
+    ) external {
         super.decrementBalanceOfPhantom(account, amount, reason);
     }
 

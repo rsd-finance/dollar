@@ -4,6 +4,6 @@ module.exports = {
   },
 
   contracts: {
-    type: 'truffle',
-  }
+    type: "truffle",
+  },
 };

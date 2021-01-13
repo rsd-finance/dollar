@@ -16,9 +16,7 @@
 
 pragma solidity ^0.5.9;
 
-
 library LibEIP712 {
-
     // Hash of the EIP712 Domain Separator Schema
     // keccak256(abi.encodePacked(
     //     "EIP712Domain(",
@@ -28,7 +26,8 @@ library LibEIP712 {
     //     "address verifyingContract",
     //     ")"
     // ))
-    bytes32 constant internal _EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH = 0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f;
+    bytes32 internal constant _EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH =
+        0x8b73c3c69bb8fe3d512ecc4cf759cc79239f7b179b0ffacaa9a75d522b39400f;
 
     /// @dev Calculates a EIP712 domain separator.
     /// @param name The EIP712 domain name.
@@ -40,11 +39,7 @@ library LibEIP712 {
         string memory version,
         uint256 chainId,
         address verifyingContract
-    )
-    internal
-    pure
-    returns (bytes32 result)
-    {
+    ) internal pure returns (bytes32 result) {
         bytes32 schemaHash = _EIP712_DOMAIN_SEPARATOR_SCHEMA_HASH;
 
         // Assembly for more efficient computing:
@@ -57,21 +52,21 @@ library LibEIP712 {
         // ))
 
         assembly {
-        // Calculate hashes of dynamic data
+            // Calculate hashes of dynamic data
             let nameHash := keccak256(add(name, 32), mload(name))
             let versionHash := keccak256(add(version, 32), mload(version))
 
-        // Load free memory pointer
+            // Load free memory pointer
             let memPtr := mload(64)
 
-        // Store params in memory
+            // Store params in memory
             mstore(memPtr, schemaHash)
             mstore(add(memPtr, 32), nameHash)
             mstore(add(memPtr, 64), versionHash)
             mstore(add(memPtr, 96), chainId)
             mstore(add(memPtr, 128), verifyingContract)
 
-        // Compute hash
+            // Compute hash
             result := keccak256(memPtr, 160)
         }
         return result;
@@ -82,11 +77,7 @@ library LibEIP712 {
     ///                         with getDomainHash().
     /// @param hashStruct The EIP712 hash struct.
     /// @return EIP712 hash applied to the given EIP712 Domain.
-    function hashEIP712Message(bytes32 eip712DomainHash, bytes32 hashStruct)
-    internal
-    pure
-    returns (bytes32 result)
-    {
+    function hashEIP712Message(bytes32 eip712DomainHash, bytes32 hashStruct) internal pure returns (bytes32 result) {
         // Assembly for more efficient computing:
         // keccak256(abi.encodePacked(
         //     EIP191_HEADER,
@@ -95,14 +86,14 @@ library LibEIP712 {
         // ));
 
         assembly {
-        // Load free memory pointer
+            // Load free memory pointer
             let memPtr := mload(64)
 
-            mstore(memPtr, 0x1901000000000000000000000000000000000000000000000000000000000000)  // EIP191 header
-            mstore(add(memPtr, 2), eip712DomainHash)                                            // EIP712 domain hash
-            mstore(add(memPtr, 34), hashStruct)                                                 // Hash of struct
+            mstore(memPtr, 0x1901000000000000000000000000000000000000000000000000000000000000) // EIP191 header
+            mstore(add(memPtr, 2), eip712DomainHash) // EIP712 domain hash
+            mstore(add(memPtr, 34), hashStruct) // Hash of struct
 
-        // Compute hash
+            // Compute hash
             result := keccak256(memPtr, 66)
         }
         return result;

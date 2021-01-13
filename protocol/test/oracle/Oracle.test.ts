@@ -1,12 +1,5 @@
 import { ethers, waffle } from "hardhat";
-import {
-  increaseTime,
-  getLatestBlockTime,
-  expectBNEq,
-  expectBNAproxEq,
-  expectRevert,
-  BN,
-} from "../Utils";
+import { increaseTime, getLatestBlockTime, expectBNEq, expectBNAproxEq, expectRevert, BN } from "../Utils";
 
 import { Contract } from "ethers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
@@ -70,7 +63,11 @@ describe("Oracle", function () {
     dollar = (await deployContract(owner, DollarArtifact, [])) as Dollar;
     usdc = (await deployContract(owner, MockUSDCArtifact, [])) as MockUSDC;
     amm = (await deployContract(owner, MockUniswapV2PairTradeArtifact, [])) as MockUniswapV2PairTrade;
-    oracle = (await deployContract(owner, MockOracleArtifact, [amm.address, dollar.address, usdc.address])) as MockOracle;
+    oracle = (await deployContract(owner, MockOracleArtifact, [
+      amm.address,
+      dollar.address,
+      usdc.address,
+    ])) as MockOracle;
 
     await increaseTime(3600);
   });
@@ -136,7 +133,7 @@ describe("Oracle", function () {
             expectBNEq(await priceForToBN(oracle), cents(100));
             expect(await oracle.isInitialized()).to.be.equal(true);
             expectBNEq(await oracle.cumulative(), BN(0));
-            expectBNEq(await oracle.timestamp(), BN(timestamp + 3600))
+            expectBNEq(await oracle.timestamp(), BN(timestamp + 3600));
             expectBNEq(await oracle.reserve(), usdcDecimals(1000000));
           });
         });

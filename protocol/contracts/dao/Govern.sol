@@ -36,28 +36,16 @@ contract Govern is Setters, Permission, Upgradeable {
     event Commit(address indexed account, address indexed candidate);
 
     function vote(address candidate, Candidate.Vote vote) external onlyFrozenOrLocked(msg.sender) {
-        Require.that(
-            balanceOf(msg.sender) > 0,
-            FILE,
-            "Must have stake"
-        );
+        Require.that(balanceOf(msg.sender) > 0, FILE, "Must have stake");
 
         if (!isNominated(candidate)) {
-            Require.that(
-                canPropose(msg.sender),
-                FILE,
-                "Not enough stake to propose"
-            );
+            Require.that(canPropose(msg.sender), FILE, "Not enough stake to propose");
 
             createCandidate(candidate, Constants.getGovernancePeriod());
             emit Proposal(candidate, msg.sender, epoch(), Constants.getGovernancePeriod());
         }
 
-        Require.that(
-            epoch() < startFor(candidate).add(periodFor(candidate)),
-            FILE,
-            "Ended"
-        );
+        Require.that(epoch() < startFor(candidate).add(periodFor(candidate)), FILE, "Ended");
 
         uint256 bonded = balanceOf(msg.sender);
         Candidate.Vote recordedVote = recordedVote(msg.sender, candidate);
@@ -85,25 +73,13 @@ contract Govern is Setters, Permission, Upgradeable {
     }
 
     function commit(address candidate) external {
-        Require.that(
-            isNominated(candidate),
-            FILE,
-            "Not nominated"
-        );
+        Require.that(isNominated(candidate), FILE, "Not nominated");
 
         uint256 endsAfter = startFor(candidate).add(periodFor(candidate)).sub(1);
 
-        Require.that(
-            epoch() > endsAfter,
-            FILE,
-            "Not ended"
-        );
+        Require.that(epoch() > endsAfter, FILE, "Not ended");
 
-        Require.that(
-            epoch() <= endsAfter.add(1).add(Constants.getGovernanceExpiration()),
-            FILE,
-            "Expired"
-        );
+        Require.that(epoch() <= endsAfter.add(1).add(Constants.getGovernanceExpiration()), FILE, "Expired");
 
         Require.that(
             Decimal.ratio(votesFor(candidate), totalBondedAt(endsAfter)).greaterThan(Constants.getGovernanceQuorum()),
@@ -111,11 +87,7 @@ contract Govern is Setters, Permission, Upgradeable {
             "Must have quorom"
         );
 
-        Require.that(
-            approveFor(candidate) > rejectFor(candidate),
-            FILE,
-            "Not approved"
-        );
+        Require.that(approveFor(candidate) > rejectFor(candidate), FILE, "Not approved");
 
         upgradeTo(candidate);
 
@@ -123,17 +95,9 @@ contract Govern is Setters, Permission, Upgradeable {
     }
 
     function emergencyCommit(address candidate) external {
-        Require.that(
-            isNominated(candidate),
-            FILE,
-            "Not nominated"
-        );
+        Require.that(isNominated(candidate), FILE, "Not nominated");
 
-        Require.that(
-            epochTime() > epoch().add(Constants.getGovernanceEmergencyDelay()),
-            FILE,
-            "Epoch synced"
-        );
+        Require.that(epochTime() > epoch().add(Constants.getGovernanceEmergencyDelay()), FILE, "Epoch synced");
 
         Require.that(
             Decimal.ratio(approveFor(candidate), totalSupply()).greaterThan(Constants.getGovernanceSuperMajority()),
@@ -141,11 +105,7 @@ contract Govern is Setters, Permission, Upgradeable {
             "Must have super majority"
         );
 
-        Require.that(
-            approveFor(candidate) > rejectFor(candidate),
-            FILE,
-            "Not approved"
-        );
+        Require.that(approveFor(candidate) > rejectFor(candidate), FILE, "Not approved");
 
         upgradeTo(candidate);
 
