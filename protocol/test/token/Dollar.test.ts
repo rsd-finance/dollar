@@ -3,7 +3,7 @@ import { expectBNEq, expectEventIn, expectRevert, getLatestBlockTime, BN } from 
 
 import { signTypedData } from "eth-sig-util";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import { Contract, ContractFactory, ContractReceipt, Wallet } from "ethers";
+import { Contract, ContractReceipt, Wallet } from "ethers";
 
 import MockComptrollerArtifact from "../../artifacts/contracts/mock/MockComptroller.sol/MockComptroller.json";
 import { MockComptroller } from "../../typechain/MockComptroller";
