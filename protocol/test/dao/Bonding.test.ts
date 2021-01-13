@@ -27,8 +27,8 @@ describe("Bonding", function () {
     bonding = (await deployContract(owner, MockBondingArtifact, [])) as MockBonding;
     dollar = await ethers.getContractAt("Dollar", await bonding.dollar());
 
-    await bonding.setEpochParamsE(await getLatestBlockTime(), 86400);
-    await increaseTime(86400);
+    await bonding.setEpochParamsE(await getLatestBlockTime(), 3600);
+    await increaseTime(3600);
     await bonding.stepE();
   });
 
@@ -755,7 +755,7 @@ describe("Bonding", function () {
       await bonding.connect(user).deposit(1000);
       await bonding.connect(user).bond(1000);
 
-      await increaseTime(86400);
+      await increaseTime(3600);
       await bonding.connect(user).stepE();
 
       /* Payout to Bonded */
@@ -774,13 +774,13 @@ describe("Bonding", function () {
       await bonding.connect(user1).bond(1000);
       await bonding.connect(user2).bond(1000);
 
-      await increaseTime(86400);
+      await increaseTime(3600);
       await bonding.connect(user).stepE();
 
       /* Unbond User */
       await bonding.connect(user).unbondUnderlying(2000);
 
-      await increaseTime(86400);
+      await increaseTime(3600);
       for (let i = 0; i < 14; i++) {
         await bonding.connect(user).stepE();
       }

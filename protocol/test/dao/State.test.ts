@@ -1,7 +1,7 @@
 import { ethers, waffle } from "hardhat";
 import { expectBNEq, expectRevert, BN } from "../Utils";
 
-import { BigNumber, Contract, ContractFactory } from "ethers";
+import { BigNumber, Contract } from "ethers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 
 import { expect } from "chai";
@@ -12,8 +12,6 @@ import { MockState } from "../../typechain/MockState";
 const { deployContract } = waffle;
 
 const BOOTSTRAPPING_END_TIMESTAMP = 1600905600;
-const EPOCH_START = 1602288000;
-const EPOCH_OFFSET = 107;
 
 describe("State", function () {
   let [owner, user, candidate]: SignerWithAddress[] = [];
@@ -538,7 +536,7 @@ describe("State", function () {
 
     describe("after one period", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 86400);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 3600);
       });
 
       it("has advanced", async function () {
@@ -548,7 +546,7 @@ describe("State", function () {
 
     describe("after many periods", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 10 * 86400);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 10 * 3600);
       });
 
       it("has advanced", async function () {
@@ -558,7 +556,7 @@ describe("State", function () {
 
     describe("one before update advance", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 14 * 86400);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 14 * 3600);
       });
 
       it("has advanced", async function () {
@@ -568,7 +566,7 @@ describe("State", function () {
 
     describe("right before update advance", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 86400 - 1);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 3600 - 1);
       });
 
       it("has advanced", async function () {
@@ -578,7 +576,7 @@ describe("State", function () {
 
     describe("at update advance", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 86400);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 3600);
       });
 
       it("has advanced", async function () {
@@ -588,21 +586,21 @@ describe("State", function () {
 
     describe("at first after update advance", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 86400 + 28800);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 3600 + 3600);
       });
 
       it("has advanced", async function () {
-        expectBNEq(await setters.epochTime(), BN(114));
+        expectBNEq(await setters.epochTime(), BN(107));
       });
     });
 
     describe("many after update advance", function () {
       beforeEach("call", async function () {
-        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 86400 + 10 * 28800);
+        await setters.setBlockTimestamp(BOOTSTRAPPING_END_TIMESTAMP + 15 * 3600 + 10 * 3600);
       });
 
       it("has advanced", async function () {
-        expectBNEq(await setters.epochTime(), BN(186));
+        expectBNEq(await setters.epochTime(), BN(116));
       });
     });
   });

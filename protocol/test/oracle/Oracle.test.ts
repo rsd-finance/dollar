@@ -188,7 +188,7 @@ describe("Oracle", function () {
             await simulateTrade(amm, 1000000, 1000000);
             initialized = await getLatestBlockTime();
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -212,7 +212,7 @@ describe("Oracle", function () {
             initialized = await getLatestBlockTime();
             await increaseTime(3600);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -237,7 +237,7 @@ describe("Oracle", function () {
             await simulateTrade(amm, 1000000, 1100000);
             initialized = await getLatestBlockTime();
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -261,7 +261,7 @@ describe("Oracle", function () {
             initialized = await getLatestBlockTime();
             await increaseTime(3600);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -414,7 +414,7 @@ describe("Oracle", function () {
             await increaseTime(3600);
             await simulateTrade(amm, 1000000, 1000000);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -440,7 +440,7 @@ describe("Oracle", function () {
             await simulateTrade(amm, 1000000, 1000000);
             await increaseTime(3600);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -467,7 +467,7 @@ describe("Oracle", function () {
             await increaseTime(3600);
             await simulateTrade(amm, 1000000, 1100000);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -493,7 +493,7 @@ describe("Oracle", function () {
             await simulateTrade(amm, 1000000, 1100000);
             await increaseTime(3600);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
             timediff = BN(timestamp).sub(initialized).toNumber();
@@ -520,7 +520,7 @@ describe("Oracle", function () {
             middle = await getLatestBlockTime();
             await increaseTime(3600);
             await oracle.connect(owner).capture();
-            await increaseTime(86400);
+            await increaseTime(3600);
             await oracle.connect(owner).capture();
             timestamp = await getLatestBlockTime();
           });
@@ -546,17 +546,17 @@ describe("Oracle", function () {
           await simulateTrade(amm, 1000000, 1150000);
           await increaseTime(3600);
           await oracle.connect(owner).capture();
-          await increaseTime(86400 - 3600);
+          await increaseTime(3600 - 3600);
           await simulateTrade(amm, 1000000, 1050000);
           await increaseTime(3600);
           await oracle.connect(owner).capture();
           await increaseTime(3600);
           await simulateTrade(amm, 1000000, 950000);
-          await increaseTime(86400 - 3600);
+          await increaseTime(3600 - 3600);
           await oracle.connect(owner).capture();
           await increaseTime(3600);
           await simulateTrade(amm, 1000000, 950000);
-          await increaseTime(86400 - 3600);
+          await increaseTime(3600 - 3600);
           await oracle.connect(owner).capture();
           timestamp = await getLatestBlockTime();
         });
@@ -580,7 +580,7 @@ describe("Oracle", function () {
           initialized = await getLatestBlockTime();
           await increaseTime(3600);
           await oracle.connect(owner).capture();
-          await increaseTime(86400);
+          await increaseTime(3600);
           await simulateTrade(amm, 2500, 3000);
           await oracle.connect(owner).capture();
           timestamp = await getLatestBlockTime();
@@ -608,7 +608,7 @@ describe("Oracle", function () {
           initialized = await getLatestBlockTime();
           await increaseTime(3600);
           await oracle.connect(owner).capture();
-          await increaseTime(86400);
+          await increaseTime(3600);
           await simulateTrade(amm, 250000, 300000);
           await oracle.connect(owner).capture();
           timestamp = await getLatestBlockTime();
@@ -636,7 +636,7 @@ describe("Oracle", function () {
           initialized = await getLatestBlockTime();
           await increaseTime(3600);
           await oracle.connect(owner).capture();
-          await increaseTime(86400);
+          await increaseTime(3600);
           await oracle.connect(owner).capture();
           timestamp = await getLatestBlockTime();
           timediff = BN(timestamp).sub(initialized).toNumber();
@@ -663,7 +663,7 @@ describe("Oracle", function () {
           initialized = await getLatestBlockTime();
           await increaseTime(3600);
           await oracle.connect(owner).capture();
-          await increaseTime(86400);
+          await increaseTime(3600);
           await usdc.setIsBlacklisted(true);
           await oracle.connect(owner).capture();
           timestamp = await getLatestBlockTime();

@@ -844,7 +844,7 @@ describe("Pool", function () {
         await pool.connect(user).deposit(1000);
         await pool.connect(user).bond(1000);
 
-        const poolLockupEpochs = 5;
+        const poolLockupEpochs = 48;
         for (let i = 0; i < poolLockupEpochs; i++) {
           await incrementEpoch(dao);
         }

@@ -14,7 +14,7 @@
     limitations under the License.
 */
 
-pragma solidity ^0.5.9;
+pragma solidity ^0.5.17;
 
 library LibEIP712 {
     // Hash of the EIP712 Domain Separator Schema

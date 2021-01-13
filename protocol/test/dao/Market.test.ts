@@ -258,7 +258,7 @@ describe("Market", function () {
       this.timeout(30000);
 
       beforeEach(async function () {
-        for (let i = 0; i < 90; i++) {
+        for (let i = 0; i < 1440; i++) {
           await market.incrementEpochE();
         }
         await market.stepE();
@@ -455,7 +455,7 @@ describe("Market", function () {
         await market.incrementEpochE();
         await market.stepE();
 
-        for (let i = 0; i < 89; i++) {
+        for (let i = 0; i < 1439; i++) {
           await market.incrementEpochE();
         }
         const tx = await market.stepE();
@@ -488,7 +488,7 @@ describe("Market", function () {
         let tx = await market.stepE();
         await tx.wait();
 
-        for (let i = 0; i < 89; i++) {
+        for (let i = 0; i < 1439; i++) {
           await market.incrementEpochE();
         }
         tx = await market.stepE();
@@ -528,7 +528,7 @@ describe("Market", function () {
           let tx = await market.stepE();
           await tx.wait();
 
-          for (let i = 0; i < 89; i++) {
+          for (let i = 0; i < 1439; i++) {
             await market.incrementEpochE();
           }
           tx = await market.stepE();
@@ -564,7 +564,7 @@ describe("Market", function () {
           let tx = await market.stepE();
           await tx.wait();
 
-          for (let i = 0; i < 89; i++) {
+          for (let i = 0; i < 1439; i++) {
             await market.incrementEpochE();
           }
           tx = await market.stepE();
@@ -599,7 +599,7 @@ describe("Market", function () {
           let tx = await market.stepE();
           await tx.wait();
 
-          for (let i = 0; i < 89; i++) {
+          for (let i = 0; i < 1439; i++) {
             await market.incrementEpochE();
           }
           tx = await market.stepE();
@@ -635,7 +635,7 @@ describe("Market", function () {
           let tx = await market.stepE();
           await tx.wait();
 
-          for (let i = 0; i < 89; i++) {
+          for (let i = 0; i < 1439; i++) {
             await market.incrementEpochE();
           }
           tx = await market.stepE();
@@ -643,6 +643,7 @@ describe("Market", function () {
         });
 
         it("emits CouponExpiration event", async function () {
+          console.log(txRecp);
           await expectEventIn(txRecp, "CouponExpiration", {
             epoch: BN(2),
             couponsExpired: BN(50000 + premium(1100000, 120000, 50000)),

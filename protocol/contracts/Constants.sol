@@ -44,7 +44,7 @@ library Constants {
 
     uint256 private constant PREVIOUS_EPOCH_OFFSET = 91;
     uint256 private constant PREVIOUS_EPOCH_START = 1600905600;
-    uint256 private constant PREVIOUS_EPOCH_PERIOD = 86400;
+    uint256 private constant PREVIOUS_EPOCH_PERIOD = 3600;
 
     uint256 private constant CURRENT_EPOCH_OFFSET = 106;
     uint256 private constant CURRENT_EPOCH_START = 1602201600;
@@ -68,6 +68,7 @@ library Constants {
     /* Market */
     uint256 private constant COUPON_EXPIRATION = 1440;
     uint256 private constant DEBT_RATIO_CAP = 20e16; // 20%
+
     uint256 private constant INITIAL_COUPON_REDEMPTION_PENALTY = 50e16; // 50%
     uint256 private constant COUPON_REDEMPTION_PENALTY_DECAY = 3600; // 1 hour
 
