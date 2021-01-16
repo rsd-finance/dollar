@@ -24,7 +24,7 @@ import "./Permittable.sol";
 import "./IDollar.sol";
 
 contract Dollar is IDollar, MinterRole, ERC20Detailed, Permittable, ERC20Burnable {
-    constructor() public ERC20Detailed("Real Stable Dollar", "ESD", 18) Permittable() {}
+    constructor() public ERC20Detailed("Real Stable Dollar", "RSD", 18) Permittable() {}
 
     function mint(address account, uint256 amount) public onlyMinter returns (bool) {
         _mint(account, amount);

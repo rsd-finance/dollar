@@ -73,7 +73,8 @@ library Constants {
     uint256 private constant COUPON_REDEMPTION_PENALTY_DECAY = 3600; // 1 hour
 
     /* Regulator */
-    uint256 private constant SUPPLY_CHANGE_LIMIT = 1025e13; // 1.025%
+    uint256 private constant SUPPLY_CHANGE_LIMIT_INIT = 25e15; // 2.5%
+    uint256 private constant SUPPLY_CHANGE_LIMIT = 15e15; // 1.5%
     uint256 private constant COUPON_SUPPLY_CHANGE_LIMIT = 6e16; // 6%
     uint256 private constant ORACLE_POOL_RATIO = 20; // 20%
     uint256 private constant TREASURY_RATIO = 250; // 2.5%
@@ -172,6 +173,10 @@ library Constants {
 
     function getSupplyChangeLimit() internal pure returns (Decimal.D256 memory) {
         return Decimal.D256({ value: SUPPLY_CHANGE_LIMIT });
+    }
+
+    function getSupplyChangeLimitInit() internal pure returns (Decimal.D256 memory) {
+        return Decimal.D256({ value: SUPPLY_CHANGE_LIMIT_INIT });
     }
 
     function getCouponSupplyChangeLimit() internal pure returns (Decimal.D256 memory) {
